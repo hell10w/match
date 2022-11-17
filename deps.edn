@@ -1,0 +1,20 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.10.3"}}
+ :aliases {:dev {:extra-paths ["test" "dev"]
+                 :extra-deps {riddley/riddley {:mvn/version "0.2.0"}
+                              org.clojure/core.match {:mvn/version "1.0.0"}
+                              org.clojure/tools.analyzer.jvm {:mvn/version "1.2.2"}
+                              org.clojure/tools.emitter.jvm {:mvn/version "0.1.0-beta5"}
+                              com.clojure-goes-fast/clj-java-decompiler {:mvn/version "0.3.2"}}}
+           :test {:extra-paths ["test"]
+                  :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}}}
+           :runner {:extra-paths ["test"]
+                    :extra-deps {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+                    :main-opts ["-m" "cognitect.test-runner"]
+                    :exec-fn cognitect.test-runner.api/test}
+           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.211"}}
+                     :exec-fn hf.depstar/uberjar
+                     :exec-args {:aot true
+                                 :jar "stuff.jar"
+                                 :main-class "core.stuff"
+                                 :sync-pom true}}}}
